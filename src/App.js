@@ -8,26 +8,24 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import CompanyDetail from "./components/CompanyDetail";
 import SearchPage from "./components/SearchPage";
-import FavouriteCompanies from "./components/FavouriteCompanies";
 
 function App() {
   return (
     <Container className="App">
       <Router>
         <Switch>
-          <Route exact path="/">
-            {<Redirect to="/search" />}
-          </Route>
+          {/* <Route exact path="/">
+            {<Redirect to="/" />}
+          </Route> */}
 
-          <Route path="/search" exact component={SearchPage} />
-          <Route path="/favourites" exact component={FavouriteCompanies} />
+          <Route path="/" exact component={SearchPage} />
+          {/* <Route path="/favourites" exact component={FavouriteCompanies} />
           <Route
             path="/company-detail/:company_name"
             exact
             render={(props) => <CompanyDetail id="890811" {...props} />}
-          />
+          /> */}
         </Switch>
       </Router>
     </Container>

@@ -1,35 +1,66 @@
 import React from "react";
-import SingleJob from "./SingleJob";
-import { Col, Container, Form, Row, Button, Spinner } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Form,
+  Row,
+  Button,
+  Spinner,
+  Card,
+  CardDeck,
+} from "react-bootstrap";
 import { useState, useEffect } from "react";
 
 function WeatherSearch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setisLoading] = useState(false);
-  const [jobsArray, setJobsArray] = useState([]);
+  const [cityDetails, setcityDetails] = useState({});
+  const [weatherDetails, setweatherDetails] = useState({ daily: [] });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (searchQuery === "") {
       alert("Please input a location!");
     } else {
-      await getArray();
+      await getCityDetails();
       setisLoading(false);
     }
   };
 
-  const getArray = async () => {
+  const getCityDetails = async () => {
+    let lat = null;
+    let lon = null;
     setisLoading(true);
     try {
       let response = await fetch(
         `http://api.openweathermap.org/data/2.5/weather?q=${searchQuery}&appid=742beed4c9ab015f770ff7c8033cea08`
       );
-      let jobsresponse = await response.json();
-      console.log(jobsresponse);
-      if (jobsresponse.length === 0) {
+      let cityresponse = await response.json();
+      if (cityresponse.length === 0) {
         alert("No weather data found in this location!");
       }
-      setJobsArray(jobsresponse);
+      setcityDetails(cityresponse);
+      lat = cityresponse.coord.lat;
+      lon = cityresponse.coord.lon;
+      await getForecastDetails(lat, lon);
+      setisLoading(false);
+    } catch (error) {
+      console.log(error);
+      setisLoading(false);
+    }
+  };
+
+  const getForecastDetails = async (lat, lon) => {
+    try {
+      let response = await fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=742beed4c9ab015f770ff7c8033cea08`
+      );
+      let weatherresponse = await response.json();
+      if (weatherresponse.length === 0) {
+        alert("No weather data found in this location!");
+      }
+      console.log(weatherresponse);
+      setweatherDetails(weatherresponse);
       setisLoading(false);
     } catch (error) {
       console.log(error);
@@ -69,7 +100,38 @@ function WeatherSearch() {
                 className="mx-auto mt-5"
               ></Spinner>
             ) : (
-              ""
+              <Container fluid="true" className="mx-auto">
+                <h1> {cityDetails.name}</h1>
+                <CardDeck>
+                  {weatherDetails.daily.map((b) => (
+                    <Col xs={3} className="px-1" key={b.dt}>
+                      <Card
+                        className="m-2 jobCard"
+                        style={{
+                          border: "3px solid black",
+                        }}
+                      >
+                        <Card.Img
+                          variant="top"
+                          src={"/" + b.weather[0].main + ".png"}
+                        />
+
+                        <Card.Body className="d-flex">
+                          <Card.Title
+                            className="m-auto"
+                            style={{ color: "black", fontSize: "16px" }}
+                          >
+                            <h5 className="mb-0">{b.weather[0].main}</h5>
+                            <small className="mb-2 mt-0">
+                              {b.weather[0].description}
+                            </small>
+                          </Card.Title>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  ))}
+                </CardDeck>
+              </Container>
             )}
           </Row>
         </Col>
