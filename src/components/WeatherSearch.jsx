@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 function WeatherSearch() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setisLoading] = useState(false);
-  const [cityDetails, setcityDetails] = useState({});
+  const [cityDetails, setcityDetails] = useState("");
   const [weatherDetails, setweatherDetails] = useState({ daily: [] });
 
   const handleSubmit = async (e) => {
@@ -39,7 +39,7 @@ function WeatherSearch() {
       if (cityresponse.length === 0) {
         alert("No weather data found in this location!");
       }
-      setcityDetails(cityresponse);
+      setcityDetails(cityresponse.name);
       lat = cityresponse.coord.lat;
       lon = cityresponse.coord.lon;
       await getForecastDetails(lat, lon);
@@ -101,7 +101,7 @@ function WeatherSearch() {
               ></Spinner>
             ) : (
               <Container fluid="true" className="mx-auto">
-                <h1> {cityDetails.name}</h1>
+                <h1> {cityDetails}</h1>
                 <CardDeck>
                   {weatherDetails.daily.map((b) => (
                     <Col xs={3} className="px-1" key={b.dt}>
@@ -121,10 +121,16 @@ function WeatherSearch() {
                             className="m-auto"
                             style={{ color: "black", fontSize: "16px" }}
                           >
+                            <h4 className="mb-2">
+                              {new Date(b.dt * 1000)
+                                .toLocaleString("en-GB", {
+                                  timeZone: "UTC",
+                                })
+                                .split(",")[0]
+                                .slice(0, 5)}
+                            </h4>
                             <h5 className="mb-0">{b.weather[0].main}</h5>
-                            <small className="mb-2 mt-0">
-                              {b.weather[0].description}
-                            </small>
+                            <small className="mb-2 mt-0"></small>
                           </Card.Title>
                         </Card.Body>
                       </Card>

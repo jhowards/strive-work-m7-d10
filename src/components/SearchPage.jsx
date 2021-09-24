@@ -20,7 +20,6 @@ function SearchPage(props) {
         </Link> */}
       </div>
       <hr style={{ backgroundColor: "black" }} />
-      <h3 className="mt-2">Search weather in your city:</h3>
       <Container className="d-flex">
         <WeatherSearch></WeatherSearch>
       </Container>

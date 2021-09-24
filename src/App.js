@@ -1,12 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import SearchPage from "./components/SearchPage";
 
@@ -15,17 +10,7 @@ function App() {
     <Container className="App">
       <Router>
         <Switch>
-          {/* <Route exact path="/">
-            {<Redirect to="/" />}
-          </Route> */}
-
           <Route path="/" exact component={SearchPage} />
-          {/* <Route path="/favourites" exact component={FavouriteCompanies} />
-          <Route
-            path="/company-detail/:company_name"
-            exact
-            render={(props) => <CompanyDetail id="890811" {...props} />}
-          /> */}
         </Switch>
       </Router>
     </Container>
