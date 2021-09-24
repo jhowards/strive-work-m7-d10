@@ -1,8 +1,8 @@
 .App {
   text-align: center;
 }
-body{
-  background-color:#121212!important;
+body {
+  background-color: #121212 !important;
   overflow: none;
 }
 .App-logo {
@@ -42,33 +42,36 @@ body{
 .jobCard:hover {
   background-color: rgba(26, 102, 153, 0.212);
 }
-.containerborder{
+.containerborder {
   height: 93vh;
   margin-top: 3vh;
   margin-bottom: 3vh;
   overflow-y: scroll;
 }
 
-
-.jobcard:hover{
-  cursor:pointer;
-  user-select: none
+.jobcard:hover {
+  cursor: pointer;
+  user-select: none;
 }
 
-.favouritecompanybutton{
-  position:absolute;
+.favouritecompanybutton {
+  position: absolute;
   right: 10px;
   top: 20px;
 }
 
-.backbutton{
-  position:absolute;
+.backbutton {
+  position: absolute;
   left: 20px;
   top: 20px;
 }
 
-.removebutton{
-  position:absolute;
+.removebutton {
+  position: absolute;
   right: 10px;
   top: 10px;
+}
+
+.weatherlogo {
+  height: 70px;
 }

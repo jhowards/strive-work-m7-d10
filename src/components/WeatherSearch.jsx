@@ -9,7 +9,7 @@ import {
   Card,
   CardDeck,
 } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaTemperatureLow } from "react-icons/fa";
 
 function WeatherSearch() {
@@ -70,7 +70,7 @@ function WeatherSearch() {
   };
 
   return (
-    <Container className="mt-4">
+    <Container className="mt-4 mx-2">
       <Row>
         <Col>
           <Row>
@@ -105,12 +105,12 @@ function WeatherSearch() {
                 {cityDetails == "" ? (
                   ""
                 ) : (
-                  <h1 className="mb-2"> {cityDetails} - 7 day Forecast</h1>
+                  <h2 className="mb-2"> {cityDetails} - 7 day Forecast</h2>
                 )}
 
                 <CardDeck className="mt-3">
                   {weatherDetails.daily.map((b) => (
-                    <Col xs={3} className="px-1" key={b.dt}>
+                    <Col xs={12} sm={6} lg={3} className="px-1" key={b.dt}>
                       <Card
                         className="m-2 jobCard"
                         style={{
@@ -136,14 +136,14 @@ function WeatherSearch() {
                                 .slice(0, 5)}
                             </h4>
                             <h5 className="mb-2">{b.weather[0].main}</h5>
-                            <p className="mb-1 mt-0">
+                            <h5 className="mb-1 mt-0">
                               <FaTemperatureLow
                                 className="mr-2"
                                 size={20}
                                 color="red"
                               />
-                              {b.temp.day} °C
-                            </p>
+                              {Math.round(b.temp.day)} °C
+                            </h5>
                           </Card.Title>
                         </Card.Body>
                       </Card>
