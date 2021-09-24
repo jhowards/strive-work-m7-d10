@@ -10,6 +10,7 @@ import {
   CardDeck,
 } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { FaTemperatureLow } from "react-icons/fa";
 
 function WeatherSearch() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -53,7 +54,7 @@ function WeatherSearch() {
   const getForecastDetails = async (lat, lon) => {
     try {
       let response = await fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=742beed4c9ab015f770ff7c8033cea08`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&units=metric&appid=742beed4c9ab015f770ff7c8033cea08`
       );
       let weatherresponse = await response.json();
       if (weatherresponse.length === 0) {
@@ -101,8 +102,13 @@ function WeatherSearch() {
               ></Spinner>
             ) : (
               <Container fluid="true" className="mx-auto">
-                <h1> {cityDetails}</h1>
-                <CardDeck>
+                {cityDetails == "" ? (
+                  ""
+                ) : (
+                  <h1 className="mb-2"> {cityDetails} - 7 day Forecast</h1>
+                )}
+
+                <CardDeck className="mt-3">
                   {weatherDetails.daily.map((b) => (
                     <Col xs={3} className="px-1" key={b.dt}>
                       <Card
@@ -129,8 +135,15 @@ function WeatherSearch() {
                                 .split(",")[0]
                                 .slice(0, 5)}
                             </h4>
-                            <h5 className="mb-0">{b.weather[0].main}</h5>
-                            <small className="mb-2 mt-0"></small>
+                            <h5 className="mb-2">{b.weather[0].main}</h5>
+                            <p className="mb-1 mt-0">
+                              <FaTemperatureLow
+                                className="mr-2"
+                                size={20}
+                                color="red"
+                              />
+                              {b.temp.day} °C
+                            </p>
                           </Card.Title>
                         </Card.Body>
                       </Card>
