@@ -102,7 +102,7 @@ function WeatherSearch() {
               ></Spinner>
             ) : (
               <Container fluid="true" className="mx-auto">
-                {cityDetails == "" ? (
+                {cityDetails === "" ? (
                   ""
                 ) : (
                   <h2 className="mb-2"> {cityDetails} - 7 day Forecast</h2>
@@ -120,6 +120,7 @@ function WeatherSearch() {
                         <Card.Img
                           variant="top"
                           src={"/" + b.weather[0].main + ".png"}
+                          className="mx-auto"
                         />
 
                         <Card.Body className="d-flex">

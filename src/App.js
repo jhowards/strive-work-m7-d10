@@ -7,7 +7,7 @@ import SearchPage from "./components/SearchPage";
 
 function App() {
   return (
-    <Col className="App mx-auto" xs={12} md={11} lg={8} xl={7}>
+    <Col className="App mx-auto" xs={12} md={11} lg={9} xl={7}>
       <Container fluid="true">
         <Router>
           <Switch>

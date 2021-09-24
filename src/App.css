@@ -73,5 +73,13 @@ body {
 }
 
 .weatherlogo {
-  height: 70px;
+  max-height: 70px;
+}
+
+.card-img-top {
+  width: 60% !important;
+}
+
+.card-body {
+  padding-top: 0.2rem !important;
 }
